@@ -1,6 +1,7 @@
 using UnityEngine;
 using NGame.Configuration;
 using NGame.Input;
+using NGame.PlayerMVC;
 
 namespace NGame
 {
@@ -8,15 +9,27 @@ namespace NGame
     {
         [SerializeField] private GameConfigurationData configurationData;
         private GameInput gameInput;
-        private Player.Player player;
+        private PlayerView playerView;
+        private PlayerModel playerModel;
 
         private void Start()
         {
             gameInput = new GameInput();
             gameInput.PlayerInput.Enable();
 
-            player = Instantiate(configurationData.PlayerConfiguration.PlayerPrefab, Vector3.zero, Quaternion.identity);
-            player.Initialize(configurationData.PlayerConfiguration, gameInput);
+            PlayerInit(configurationData.PlayerConfiguration);
+            playerView = Instantiate(configurationData.PlayerConfiguration.PlayerPrefab, Vector3.zero, Quaternion.identity);
+            playerView.Initialize(playerModel, gameInput);
+        }
+
+        private void PlayerInit(GameConfigurationDataPlayer playerConfig)
+        {
+            playerModel = new PlayerModel
+            {
+                Speed = playerConfig.PlayerSpeed,
+                Inertia = playerConfig.PlayerInertia,
+                JumpForce = playerConfig.PlayerJumpForce
+            };
         }
     }
 }

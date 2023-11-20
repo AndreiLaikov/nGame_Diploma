@@ -1,15 +1,22 @@
-using System;
-using UnityEngine;
-
-namespace NGame.Player
+namespace NGame.PlayerMVC
 {
-    [Serializable]
-    public class PlayerModel : MonoBehaviour
+    public class PlayerModel
     {
-        [SerializeField] private Rigidbody2D rBody;
-        public Rigidbody2D RBody => rBody;
+        public float Speed;
+        public float Inertia;
+        public float JumpForce;
 
-        [SerializeField] private Collider2D playerCollider;
-        public Collider2D PlayerCollider => playerCollider;
+        public bool IsGrounded;
+        public bool IsWalled;
+
+        public void SetIsGrounded(bool grounded)
+        {
+            IsGrounded = grounded;//+ ивент
+        }
+
+        public void SetIsWalled(bool walled)
+        {
+            IsWalled = walled;
+        }
     }
 }

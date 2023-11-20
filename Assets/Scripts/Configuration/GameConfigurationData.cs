@@ -1,4 +1,6 @@
 using System;
+using NGame.PlayerMVC;
+
 namespace NGame.Configuration
 {
     [Serializable]
@@ -10,8 +12,9 @@ namespace NGame.Configuration
     [Serializable]
     public class GameConfigurationDataPlayer
     {
-        public Player.Player PlayerPrefab;
+        public PlayerView PlayerPrefab;
         public float PlayerSpeed;
         public float PlayerInertia;
+        public float PlayerJumpForce;
     }
 }
