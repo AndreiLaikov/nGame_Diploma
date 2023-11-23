@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &213057389496719747
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 104730053201038579}
-  m_Layer: 0
-  m_Name: WallsChecker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &104730053201038579
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213057389496719747}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0869, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7936303502352823976}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &719405633341465377
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +150,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8461917230207075988}
-  - {fileID: 104730053201038579}
   - {fileID: 5895187193675428932}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -197,6 +165,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c869ba1b63c54b29b11141e18386d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model:
+    MaxSpeed: 0
+    Acceleration: 0
+    JumpForce: 0
+    SlidingSpeed: 0
+    isGrounded: 0
+    isSliding: 0
+    playerCurrentDirection: 0
   controller: {fileID: 8363623222663167966}
 --- !u!114 &8363623222663167966
 MonoBehaviour:
@@ -210,17 +186,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c28e0fb10ea43ab8d3a386f1a4b24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundChecker: {fileID: 8461917230207075988}
-  GroundedMask:
+  model:
+    MaxSpeed: 0
+    Acceleration: 0
+    JumpForce: 0
+    SlidingSpeed: 0
+    isGrounded: 0
+    isSliding: 0
+    playerCurrentDirection: 0
+  groundChecker: {fileID: 8461917230207075988}
+  groundedMask:
     serializedVersion: 2
     m_Bits: 64
-  rBody: {fileID: -1536313635968728499}
-  WallChecker: {fileID: 104730053201038579}
-  isSliding: 0
-  WallSlidingSpeed: 1
-  IsWallJumping: 0
-  wallJumpingDuration: 1
-  wallJumping: {x: 2, y: 2}
 --- !u!212 &307154552290076917
 SpriteRenderer:
   m_ObjectHideFlags: 0

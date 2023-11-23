@@ -300,9 +300,10 @@ MonoBehaviour:
   configurationData:
     PlayerConfiguration:
       PlayerPrefab: {fileID: 4545394750861638230, guid: ca6f6c0a909cc444196cc62f78eec938, type: 3}
-      PlayerSpeed: 3
-      PlayerInertia: 4
-      PlayerJumpForce: 5
+      MaxSpeed: 5
+      Accleleration: 3
+      JumpForce: 7
+      SlidingSpeed: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

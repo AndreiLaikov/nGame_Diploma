@@ -5,101 +5,87 @@ namespace NGame.PlayerMVC
     public class PlayerController : MonoBehaviour
     {
         public PlayerModel model;
-        public Transform GroundChecker;
-        public LayerMask GroundedMask;
-        public Rigidbody2D rBody;
+        private Rigidbody2D rBody;
 
-        private float direction;
+        private bool IsReadyToWallJumping;
+        private Vector2 currentVelocity;
+        private float targetHorizontalVelocity;
+        [SerializeField]private Transform groundChecker;
+        [SerializeField]private LayerMask groundedMask;
 
-        public Transform WallChecker;
-        public bool isSliding;
-        public float WallSlidingSpeed;
-        private Vector2 normal;
-        public bool IsWallJumping;
-        public Vector2 wallJumping;
-
-        public void CheckGround()
+        private void Start()
         {
-            var grounded = Physics2D.Raycast(GroundChecker.position, Vector2.down, 0.1f, GroundedMask);
-            model.SetIsGrounded(grounded);
+            rBody = GetComponent<Rigidbody2D>();
         }
 
-        public void CheckWall()
+        private void Update()
         {
-            var walled = Physics2D.Raycast(WallChecker.position, -transform.right * transform.localScale.x, 0.1f, GroundedMask);
-            normal = walled.normal;
-            model.SetIsWalled(walled);
-        }
-
-        public void CheckSliding()
-        {
-            if(model.IsWalled && !model.IsGrounded)
-            {
-                isSliding = true;
-            }
-            else
-            {
-                isSliding = false;
-            }
-        }
-
-        private void Flip()
-        {
-            if (rBody.velocity.x < -0.1f)
-                transform.localScale = new Vector3(1, 1, 1);
-            if  (rBody.velocity.x > 0.1f)
-                transform.localScale = new Vector3(-1, 1, 1);
+            CheckDirection();
+            CheckGround();
+            CheckSliding();
         }
 
         public void Move(float input)
         {
-            Flip();
+            currentVelocity = rBody.velocity;
+            targetHorizontalVelocity = Mathf.Lerp(targetHorizontalVelocity, input * model.MaxSpeed, model.Acceleration * Time.deltaTime);
 
-            var dt = Time.deltaTime;
-            direction = Mathf.Lerp(direction, input, model.Inertia * dt);
-
-            if (Mathf.Abs(direction) < 0.01f)
+            if (model.isSliding)
             {
-                direction = 0;
+                var CurrentGravity = Mathf.Clamp(rBody.velocity.y, -model.SlidingSpeed, float.MaxValue);
+                currentVelocity.y = CurrentGravity;
+
+                rBody.velocity = currentVelocity;
+
+                IsReadyToWallJumping = true;
             }
 
-            if (isSliding)
+            if (IsReadyToWallJumping)
             {
-                rBody.velocity = new Vector2(rBody.velocity.x, Mathf.Clamp(rBody.velocity.y, -WallSlidingSpeed, float.MaxValue));
-            }
-
-            if (IsWallJumping)
-            {
-                IsWallJumping = !model.IsGrounded;
+                IsReadyToWallJumping = !model.isGrounded;
             }
             else
             {
-                rBody.velocity = new Vector2(direction * model.Speed, rBody.velocity.y);
+                currentVelocity.x = targetHorizontalVelocity;
+                rBody.velocity = currentVelocity;
             }
         }
 
         public void Jump()
         {
-            if (model.IsGrounded)
+            if (model.isGrounded)
             {
                 rBody.AddForce(Vector2.up * model.JumpForce, ForceMode2D.Impulse);
             }
 
-            if (isSliding)
+            if (model.isSliding)
             {
-                rBody.AddForce(new Vector2(wallJumping.x * transform.localScale.x, wallJumping.y), ForceMode2D.Impulse);
-                IsWallJumping = true;
+                rBody.AddForce(Vector2.up * model.JumpForce, ForceMode2D.Impulse);
+                rBody.AddForce(Vector2.right * model.JumpForce * (int)model.playerCurrentDirection, ForceMode2D.Impulse);
             }
-       
         }
 
-
-        private void Update()
+        private void CheckDirection()
         {
-            CheckGround();
-            CheckWall();
-            CheckSliding();
-            
+            if (rBody.velocity.x < -0.1f)
+            {
+                model.SetDirection(PlayerModel.PlayerDirection.Left);
+            }
+            if (rBody.velocity.x > 0.1f)
+            {
+                model.SetDirection(PlayerModel.PlayerDirection.Right);
+            }
+        }
+
+        private void CheckGround()
+        {
+            model.SetIsGrounded(Physics2D.Raycast(groundChecker.position, Vector2.down, 0.1f, groundedMask));
+        }
+
+        private void CheckSliding()
+        {
+            Debug.DrawRay(transform.position, -transform.right * (int)model.playerCurrentDirection * 0.15f, Color.red);
+            model.SetIsSliding(!model.isGrounded && Physics2D.Raycast(transform.position, -transform.right * (int)model.playerCurrentDirection, 0.15f, groundedMask));//todo change 0.1 to halfsize of player+0.1
         }
     }
 }

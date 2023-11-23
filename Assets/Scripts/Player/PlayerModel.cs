@@ -1,22 +1,40 @@
+using System;
+using UnityEngine;
+
 namespace NGame.PlayerMVC
 {
+    [Serializable]
     public class PlayerModel
     {
-        public float Speed;
-        public float Inertia;
+        public float MaxSpeed;
+        public float Acceleration;
         public float JumpForce;
+        public float SlidingSpeed;
 
-        public bool IsGrounded;
-        public bool IsWalled;
+        public bool isGrounded { get; private set; }
+        public bool isSliding { get; private set; }
+
+        public enum PlayerDirection
+        {
+            Left = 1,
+            Right = -1
+        }
+
+        public PlayerDirection playerCurrentDirection { get; private set; }
 
         public void SetIsGrounded(bool grounded)
         {
-            IsGrounded = grounded;//+ ивент
+            isGrounded = grounded;//+ ивент
         }
 
-        public void SetIsWalled(bool walled)
+        public void SetIsSliding(bool sliding)
         {
-            IsWalled = walled;
+            isSliding = sliding;//+ ивент
+        }
+
+        public void SetDirection(PlayerDirection value)
+        {
+            playerCurrentDirection = value;//+ ивент
         }
     }
 }

@@ -26,7 +26,7 @@ namespace NGame.PlayerMVC
             controller.Jump();
         }
 
-        public void Update()
+        public void Update()//or FixedUpdate? Or read in Update and invoke in FixedUpdate?
         {
             controller.Move(input.PlayerInput.Move.ReadValue<float>());
         }

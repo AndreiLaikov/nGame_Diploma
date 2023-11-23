@@ -26,9 +26,10 @@ namespace NGame
         {
             playerModel = new PlayerModel
             {
-                Speed = playerConfig.PlayerSpeed,
-                Inertia = playerConfig.PlayerInertia,
-                JumpForce = playerConfig.PlayerJumpForce
+                MaxSpeed = playerConfig.MaxSpeed,
+                Acceleration = playerConfig.Accleleration,
+                JumpForce = playerConfig.JumpForce,
+                SlidingSpeed = playerConfig.SlidingSpeed
             };
         }
     }
