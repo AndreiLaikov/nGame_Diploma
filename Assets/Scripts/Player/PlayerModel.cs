@@ -13,6 +13,7 @@ namespace NGame.PlayerMVC
 
         public bool isGrounded { get; private set; }
         public bool isSliding { get; private set; }
+        public bool isJumping;
 
         public enum PlayerDirection
         {

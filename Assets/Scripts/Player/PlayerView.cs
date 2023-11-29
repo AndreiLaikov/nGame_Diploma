@@ -29,6 +29,8 @@ namespace NGame.PlayerMVC
         public void Update()//or FixedUpdate? Or read in Update and invoke in FixedUpdate?
         {
             controller.Move(input.PlayerInput.Move.ReadValue<float>());
+
+            model.isJumping = input.PlayerInput.Jump.IsInProgress();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace NGame.PlayerMVC
@@ -9,9 +10,12 @@ namespace NGame.PlayerMVC
 
         private bool IsReadyToWallJumping;
         private Vector2 currentVelocity;
-        private float targetHorizontalVelocity;
         [SerializeField]private Transform groundChecker;
         [SerializeField]private LayerMask groundedMask;
+
+        public float force;
+        public float time = 1;
+        public float maxHeight;
 
         private void Start()
         {
@@ -23,19 +27,22 @@ namespace NGame.PlayerMVC
             CheckDirection();
             CheckGround();
             CheckSliding();
+            LongJump();
+
+            if (transform.position.y > maxHeight)
+                maxHeight = transform.position.y;
         }
 
         public void Move(float input)
         {
             currentVelocity = rBody.velocity;
-            targetHorizontalVelocity = Mathf.Lerp(targetHorizontalVelocity, input * model.MaxSpeed, model.Acceleration * Time.deltaTime);
+
+            currentVelocity.x = Mathf.Lerp(currentVelocity.x, input * model.MaxSpeed, model.Acceleration * Time.deltaTime);
 
             if (model.isSliding)
             {
                 var CurrentGravity = Mathf.Clamp(rBody.velocity.y, -model.SlidingSpeed, float.MaxValue);
                 currentVelocity.y = CurrentGravity;
-
-                rBody.velocity = currentVelocity;
 
                 IsReadyToWallJumping = true;
             }
@@ -44,10 +51,16 @@ namespace NGame.PlayerMVC
             {
                 IsReadyToWallJumping = !model.isGrounded;
             }
-            else
+ 
+            rBody.velocity = currentVelocity;
+        }
+
+        private void LongJump()
+        {
+            if (model.isJumping && time > 0)
             {
-                currentVelocity.x = targetHorizontalVelocity;
-                rBody.velocity = currentVelocity;
+                time -= Time.deltaTime;
+                rBody.AddForce(Vector2.up * model.JumpForce);
             }
         }
 
@@ -56,6 +69,7 @@ namespace NGame.PlayerMVC
             if (model.isGrounded)
             {
                 rBody.AddForce(Vector2.up * model.JumpForce, ForceMode2D.Impulse);
+                time = 1f;
             }
 
             if (model.isSliding)
@@ -84,8 +98,7 @@ namespace NGame.PlayerMVC
 
         private void CheckSliding()
         {
-            Debug.DrawRay(transform.position, -transform.right * (int)model.playerCurrentDirection * 0.15f, Color.red);
-            model.SetIsSliding(!model.isGrounded && Physics2D.Raycast(transform.position, -transform.right * (int)model.playerCurrentDirection, 0.15f, groundedMask));//todo change 0.1 to halfsize of player+0.1
+            model.SetIsSliding(!model.isGrounded && Physics2D.Raycast(transform.position, -transform.right * (int)model.playerCurrentDirection, 0.3f, groundedMask));//todo change 0.1 to halfsize of player+0.1
         }
     }
 }
