@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace NGame.PlayerMVC
@@ -60,7 +59,7 @@ namespace NGame.PlayerMVC
             if (model.isJumping && time > 0)
             {
                 time -= Time.deltaTime;
-                rBody.AddForce(Vector2.up * model.JumpForce);
+                rBody.AddForce(Vector2.up * model.JumpForce*force);
             }
         }
 

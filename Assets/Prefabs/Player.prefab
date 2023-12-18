@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8461917230207075988}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5895187193675428932}
   - component: {fileID: 4926221975552783614}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,12 +126,13 @@ GameObject:
   - component: {fileID: 7936303502352823976}
   - component: {fileID: 4545394750861638230}
   - component: {fileID: 8363623222663167966}
+  - component: {fileID: -546278073293505344}
   - component: {fileID: 307154552290076917}
   - component: {fileID: -1536313635968728499}
   - component: {fileID: 5041900101471202135}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,6 +171,7 @@ MonoBehaviour:
     Acceleration: 0
     JumpForce: 0
     SlidingSpeed: 0
+    isJumping: 0
   controller: {fileID: 8363623222663167966}
 --- !u!114 &8363623222663167966
 MonoBehaviour:
@@ -188,10 +190,27 @@ MonoBehaviour:
     Acceleration: 0
     JumpForce: 0
     SlidingSpeed: 0
+    isJumping: 0
   groundChecker: {fileID: 8461917230207075988}
   groundedMask:
     serializedVersion: 2
     m_Bits: 64
+  force: 3
+  time: 1
+  maxHeight: 0
+--- !u!114 &-546278073293505344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9033559508378289142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaab82314b602413bb3a8e82ed884d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 5
 --- !u!212 &307154552290076917
 SpriteRenderer:
   m_ObjectHideFlags: 0

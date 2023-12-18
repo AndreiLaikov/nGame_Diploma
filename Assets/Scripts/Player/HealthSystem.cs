@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour, IHealth
 {
-    private int currentHealth;
+    [SerializeField]private int currentHealth;
 
     public int GetHealth()
     {
