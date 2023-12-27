@@ -9,10 +9,10 @@ namespace NGame.PlayerMVC
         public float Acceleration;
         public float JumpForce;
         public float SlidingSpeed;
+        public float JumpPeriod;
 
         public bool isGrounded { get; private set; }
         public bool isSliding { get; private set; }
-        public bool isJumping;
 
         public enum PlayerDirection
         {

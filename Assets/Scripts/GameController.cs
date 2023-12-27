@@ -13,15 +13,18 @@ namespace NGame
         private PlayerModel playerModel;
         public PlayerController PlayerController;
 
-        private void Start()
+        public override void Awake()
         {
+            base.Awake();
+
             gameInput = new GameInput();
             gameInput.PlayerInput.Enable();
 
             PlayerInit(configurationData.PlayerConfiguration);
             playerView = Instantiate(configurationData.PlayerConfiguration.PlayerPrefab, Vector3.zero, Quaternion.identity);
             playerView.Initialize(playerModel, gameInput);
-            PlayerController = playerView.controller;
+            PlayerController = playerView.GetComponent<PlayerController>();
+            Debug.Log("G");
         }
 
         private void PlayerInit(GameConfigurationDataPlayer playerConfig)
@@ -31,7 +34,8 @@ namespace NGame
                 MaxSpeed = playerConfig.MaxSpeed,
                 Acceleration = playerConfig.Accleleration,
                 JumpForce = playerConfig.JumpForce,
-                SlidingSpeed = playerConfig.SlidingSpeed
+                SlidingSpeed = playerConfig.SlidingSpeed,
+                JumpPeriod = playerConfig.JumpPeriod
             };
         }
     }

@@ -10,7 +10,7 @@ namespace NGame.PlayerMVC
         public PlayerModel model;
         public PlayerController controller;
 
-        public GameInput input;
+        private GameInput input;
 
         public void Initialize(PlayerModel playerModel, GameInput playerInput)
         {
@@ -29,8 +29,7 @@ namespace NGame.PlayerMVC
         public void Update()//or FixedUpdate? Or read in Update and invoke in FixedUpdate?
         {
             controller.Move(input.PlayerInput.Move.ReadValue<float>());
-
-            model.isJumping = input.PlayerInput.Jump.IsInProgress();
+            controller.LongJump(input.PlayerInput.Jump.IsInProgress());
         }
     }
 }

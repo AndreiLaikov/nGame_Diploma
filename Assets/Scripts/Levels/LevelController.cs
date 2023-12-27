@@ -30,6 +30,7 @@ public class LevelController : MonoBehaviour
     {
         if (roomNumber >= Rooms.Length)
         {
+            Debug.Log("NewEpisode");
             //todo Load Next Episode
             return;
         }
@@ -37,7 +38,6 @@ public class LevelController : MonoBehaviour
         for (int i = 0; i < Rooms.Length; i++)
         {
             Rooms[i].gameObject.SetActive(i == roomNumber);
-            Debug.Log(player);
             player.transform.position = Rooms[currentRoomNumber].PlayerSpawnPoint.position;
             player.transform.rotation = Quaternion.identity;
         }

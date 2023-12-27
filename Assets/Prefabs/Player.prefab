@@ -195,9 +195,9 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 64
-  force: 3
+  LongJumpForce: 1
   time: 1
-  maxHeight: 0
+  Period: 2
 --- !u!114 &-546278073293505344
 MonoBehaviour:
   m_ObjectHideFlags: 0

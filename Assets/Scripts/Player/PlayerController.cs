@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace NGame.PlayerMVC
@@ -12,13 +13,13 @@ namespace NGame.PlayerMVC
         [SerializeField]private Transform groundChecker;
         [SerializeField]private LayerMask groundedMask;
 
-        public float force;
-        public float time = 1;
-        public float maxHeight;
+        private float jumpTime;
 
         private void Start()
         {
+            Application.targetFrameRate = 30;
             rBody = GetComponent<Rigidbody2D>();
+            jumpTime = model.JumpPeriod;
         }
 
         private void Update()
@@ -26,10 +27,6 @@ namespace NGame.PlayerMVC
             CheckDirection();
             CheckGround();
             CheckSliding();
-            LongJump();
-
-            if (transform.position.y > maxHeight)
-                maxHeight = transform.position.y;
         }
 
         public void Move(float input)
@@ -54,12 +51,12 @@ namespace NGame.PlayerMVC
             rBody.velocity = currentVelocity;
         }
 
-        private void LongJump()
+        public void LongJump(bool isJumping)
         {
-            if (model.isJumping && time > 0)
+            if (isJumping && jumpTime > 0)
             {
-                time -= Time.deltaTime;
-                rBody.AddForce(Vector2.up * model.JumpForce*force);
+                jumpTime -= Time.deltaTime;
+                rBody.AddForce(Vector2.up * model.JumpForce * jumpTime, ForceMode2D.Force);
             }
         }
 
@@ -68,7 +65,7 @@ namespace NGame.PlayerMVC
             if (model.isGrounded)
             {
                 rBody.AddForce(Vector2.up * model.JumpForce, ForceMode2D.Impulse);
-                time = 1f;
+                jumpTime = model.JumpPeriod;
             }
 
             if (model.isSliding)
@@ -97,7 +94,9 @@ namespace NGame.PlayerMVC
 
         private void CheckSliding()
         {
-            model.SetIsSliding(!model.isGrounded && Physics2D.Raycast(transform.position, -transform.right * (int)model.playerCurrentDirection, 0.3f, groundedMask));//todo change 0.1 to halfsize of player+0.1
+            model.SetIsSliding(rBody.velocity.y < 0 &&
+                !model.isGrounded &&
+                Physics2D.Raycast(transform.position, -transform.right * (int)model.playerCurrentDirection, 0.3f, groundedMask));//todo change 0.3 to halfsize of player+0.1
         }
     }
 }

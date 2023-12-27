@@ -13,9 +13,10 @@ namespace NGame.Configuration
     public class GameConfigurationDataPlayer
     {
         public PlayerView PlayerPrefab;
-        public float MaxSpeed;
-        public float Accleleration;
-        public float JumpForce;
-        public float SlidingSpeed;
+        public float MaxSpeed = 5;
+        public float Accleleration = 1;
+        public float JumpForce = 4;
+        public float SlidingSpeed = 1;
+        public float JumpPeriod = 1;
     }
 }

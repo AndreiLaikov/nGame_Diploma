@@ -1,3 +1,4 @@
+using NGame;
 using NGame.PlayerMVC;
 using UnityEngine;
 
@@ -9,9 +10,9 @@ public class EnemyRocketLauncher : MonoBehaviour
 
     private Rocket currentRocket;
 
-    private void Awake()
+    private void Start()
     {
-        player = FindObjectOfType<PlayerController>();
+        player = GameController.Instance.PlayerController;
     }
 
     private void CheckPlayer()
@@ -36,7 +37,6 @@ public class EnemyRocketLauncher : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawLine(transform.position, player.transform.position);
         if (currentRocket == null)
         {
             CheckPlayer();
@@ -45,7 +45,7 @@ public class EnemyRocketLauncher : MonoBehaviour
 
     private void Launch()
     {
-        currentRocket = Instantiate(RocketPrefab, transform.position, Quaternion.identity);
+        currentRocket = Instantiate(RocketPrefab, transform.position, Quaternion.identity, transform);
         currentRocket.Target = player;
     }
 }

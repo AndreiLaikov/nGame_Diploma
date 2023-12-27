@@ -8,7 +8,7 @@ public class Unlocker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isActivated && collision.gameObject.layer == LayerMask.GetMask("Player"))
+        if (!isActivated && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             isActivated = true;
             UnlockerActivated?.Invoke();

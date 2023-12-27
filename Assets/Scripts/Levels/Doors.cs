@@ -22,7 +22,7 @@ public class Doors : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!IsOpen && collision.gameObject.layer == LayerMask.GetMask("Player"))
+        if (IsOpen && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerInDoor?.Invoke();
             Debug.Log("LoadNext");
