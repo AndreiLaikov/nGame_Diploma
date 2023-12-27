@@ -5,12 +5,13 @@ using NGame.PlayerMVC;
 
 namespace NGame
 {
-    public class GameController : MonoBehaviour
+    public class GameController : Singleton<GameController>
     {
         [SerializeField] private GameConfigurationData configurationData;
         private GameInput gameInput;
         private PlayerView playerView;
         private PlayerModel playerModel;
+        public PlayerController PlayerController;
 
         private void Start()
         {
@@ -20,6 +21,7 @@ namespace NGame
             PlayerInit(configurationData.PlayerConfiguration);
             playerView = Instantiate(configurationData.PlayerConfiguration.PlayerPrefab, Vector3.zero, Quaternion.identity);
             playerView.Initialize(playerModel, gameInput);
+            PlayerController = playerView.controller;
         }
 
         private void PlayerInit(GameConfigurationDataPlayer playerConfig)
