@@ -94,8 +94,7 @@ namespace NGame.PlayerMVC
 
         private void CheckSliding()
         {
-            model.SetIsSliding(rBody.velocity.y < 0 &&
-                !model.isGrounded &&
+            model.SetIsSliding(!model.isGrounded &&
                 Physics2D.Raycast(transform.position, -transform.right * (int)model.playerCurrentDirection, 0.3f, groundedMask));//todo change 0.3 to halfsize of player+0.1
         }
     }
