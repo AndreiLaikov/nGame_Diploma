@@ -89,7 +89,8 @@ namespace NGame.PlayerMVC
 
         private void CheckGround()
         {
-            model.SetIsGrounded(Physics2D.Raycast(groundChecker.position, Vector2.down, 0.1f, groundedMask));
+            //model.SetIsGrounded(Physics2D.Raycast(groundChecker.position, Vector2.down, 0.2f, groundedMask));
+            model.SetIsGrounded(Physics2D.CircleCast(groundChecker.position, 0.2f, Vector2.down, 0.2f, groundedMask));
         }
 
         private void CheckSliding()

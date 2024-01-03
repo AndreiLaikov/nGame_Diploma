@@ -147,7 +147,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8461917230207075988}
@@ -171,7 +171,7 @@ MonoBehaviour:
     Acceleration: 0
     JumpForce: 0
     SlidingSpeed: 0
-    isJumping: 0
+    JumpPeriod: 0
   controller: {fileID: 8363623222663167966}
 --- !u!114 &8363623222663167966
 MonoBehaviour:
@@ -190,14 +190,11 @@ MonoBehaviour:
     Acceleration: 0
     JumpForce: 0
     SlidingSpeed: 0
-    isJumping: 0
+    JumpPeriod: 0
   groundChecker: {fileID: 8461917230207075988}
   groundedMask:
     serializedVersion: 2
     m_Bits: 64
-  LongJumpForce: 1
-  time: 1
-  Period: 2
 --- !u!114 &-546278073293505344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +276,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: d450cf451335442e29b0edfa752f953f, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
