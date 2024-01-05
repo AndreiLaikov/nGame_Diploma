@@ -1,15 +1,18 @@
 using NGame;
 using NGame.PlayerMVC;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
+    public int EpisodeNumber;
     public Room[] Rooms;
     private int currentRoomNumber;
     private PlayerController player;
 
     private void Start()
     {
+        Debug.Log(PlayerPrefs.GetInt("Episode" + EpisodeNumber.ToString()));
         player = GameController.Instance.PlayerController;
 
         foreach (var room in Rooms)
@@ -30,8 +33,9 @@ public class LevelController : MonoBehaviour
     {
         if (roomNumber >= Rooms.Length)
         {
-            Debug.Log("NewEpisode");
-            //todo Load Next Episode
+            var currentEpisode = PlayerPrefs.GetInt("Episode" + EpisodeNumber.ToString());
+            PlayerPrefs.SetInt("Episode" + EpisodeNumber.ToString(), currentEpisode+1);
+            SceneManager.LoadScene(0);
             return;
         }
 
