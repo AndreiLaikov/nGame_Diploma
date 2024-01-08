@@ -12,7 +12,7 @@ public class EnemyRocketLauncher : MonoBehaviour
 
     private void Start()
     {
-        player = GameController.Instance.PlayerController;
+        player = GameController.Instance.Controller;
     }
 
     private void CheckPlayer()

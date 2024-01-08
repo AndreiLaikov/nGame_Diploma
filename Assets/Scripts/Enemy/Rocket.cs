@@ -1,16 +1,11 @@
 using NGame.PlayerMVC;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour
+public class Rocket : EnemyBase
 {
     public PlayerController Target;
     public Rigidbody2D rBody;
     public float ForceValue;
-
-    private void Start()
-    {
-        
-    }
 
     private void Flying()
     {
@@ -23,7 +18,7 @@ public class Rocket : MonoBehaviour
         Flying();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
     }

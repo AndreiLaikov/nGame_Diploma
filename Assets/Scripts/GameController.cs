@@ -11,14 +11,15 @@ namespace NGame
         public GameInput GameInput;
         private PlayerView playerView;
         private PlayerModel playerModel;
-        public PlayerController PlayerController;
+        public PlayerController Controller;
+
+        public LevelController currentLevelController;
 
         public override void Awake()
         {
             base.Awake();
 
             GameInput = new GameInput();
-            GameInput.PlayerInput.Enable();
         }
 
         private void PlayerInit(GameConfigurationDataPlayer playerConfig)
@@ -35,13 +36,23 @@ namespace NGame
 
         public void CreatePlayer()
         {
-            if (PlayerController != null)
+            if (Controller != null)
                 return;
 
+            GameInput.PlayerInput.Enable();
             PlayerInit(configurationData.PlayerConfiguration);
             playerView = Instantiate(configurationData.PlayerConfiguration.PlayerPrefab, Vector3.zero, Quaternion.identity);
             playerView.Initialize(playerModel);
-            PlayerController = playerView.GetComponent<PlayerController>();
+            Controller = playerView.GetComponent<PlayerController>();
+        }
+
+        public void Restart()
+        {
+            GameInput.PlayerInput.Enable();
+            Destroy(Controller.gameObject);
+            Controller = null;
+
+            currentLevelController.Restart();
         }
     }
 }

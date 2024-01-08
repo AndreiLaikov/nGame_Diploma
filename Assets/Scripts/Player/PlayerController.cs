@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace NGame.PlayerMVC
@@ -7,9 +6,10 @@ namespace NGame.PlayerMVC
     {
         public PlayerModel model;
         private Rigidbody2D rBody;
+        private HealthSystem healthSystem;
 
         private bool IsReadyToWallJumping;
-        private Vector2 currentVelocity;
+        public Vector2 currentVelocity;
         [SerializeField]private Transform groundChecker;
         [SerializeField]private LayerMask groundedMask;
 
@@ -17,9 +17,19 @@ namespace NGame.PlayerMVC
 
         private void Start()
         {
-            Application.targetFrameRate = 30;
             rBody = GetComponent<Rigidbody2D>();
             jumpTime = model.JumpPeriod;
+
+            healthSystem = GetComponent<HealthSystem>();
+            healthSystem.DamageRecieved += OnDamageRecieved;
+        }
+
+        private void OnDamageRecieved()
+        {
+            if(healthSystem.GetHealth() == 0)
+            {
+                model.SetIsDeath(true);
+            }
         }
 
         private void Update()
@@ -97,5 +107,11 @@ namespace NGame.PlayerMVC
             model.SetIsSliding(!model.isGrounded &&
                 Physics2D.Raycast(transform.position, -transform.right * (int)model.playerCurrentDirection, 0.3f, groundedMask));//todo change 0.3 to halfsize of player+0.1
         }
+
+        private void OnDestroy()
+        {
+            healthSystem.DamageRecieved -= OnDamageRecieved;
+        }
+
     }
 }

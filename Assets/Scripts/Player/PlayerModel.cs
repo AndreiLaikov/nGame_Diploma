@@ -13,6 +13,9 @@ namespace NGame.PlayerMVC
 
         public bool isGrounded { get; private set; }
         public bool isSliding { get; private set; }
+        public bool isDeath;
+
+        public event Action Death;
 
         public enum PlayerDirection
         {
@@ -35,6 +38,15 @@ namespace NGame.PlayerMVC
         public void SetDirection(PlayerDirection value)
         {
             playerCurrentDirection = value;//+ ивент
+        }
+
+        public void SetIsDeath(bool value)
+        {
+            isDeath = value;
+            if (value)
+            {
+                Death?.Invoke();
+            }
         }
     }
 }

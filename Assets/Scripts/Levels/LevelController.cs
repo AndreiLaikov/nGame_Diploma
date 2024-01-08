@@ -12,27 +12,34 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
-        var gameController = GameController.Instance;
-        gameController.CreatePlayer();
-        player = gameController.PlayerController;
-
         foreach (var room in Rooms)
         {
             room.RoomComplete += OnRoomComplete;
         }
         currentRoomNumber = 0;
-        LoadRoom(currentRoomNumber);
+
+        Restart();
     }
 
     private void OnRoomComplete()
     {
         currentRoomNumber++;
-        LoadRoom(currentRoomNumber);
+        LoadRoom();
     }
 
-    private void LoadRoom(int roomNumber)
+    public void Restart()
     {
-        if (roomNumber >= Rooms.Length)
+        var gameController = GameController.Instance;
+        gameController.CreatePlayer();
+        player = gameController.Controller;
+        gameController.currentLevelController = this;
+
+        LoadRoom();
+    }
+
+    private void LoadRoom()
+    {
+        if (currentRoomNumber >= Rooms.Length)
         {
             PlayerPrefs.SetInt("Episode" + EpisodeNumber.ToString(), EpisodeNumber + 1);
             SceneManager.LoadScene(0);
@@ -41,7 +48,7 @@ public class LevelController : MonoBehaviour
 
         for (int i = 0; i < Rooms.Length; i++)
         {
-            Rooms[i].gameObject.SetActive(i == roomNumber);
+            Rooms[i].gameObject.SetActive(i == currentRoomNumber);
             player.transform.position = Rooms[currentRoomNumber].PlayerSpawnPoint.position;
             player.transform.rotation = Quaternion.identity;
         }
