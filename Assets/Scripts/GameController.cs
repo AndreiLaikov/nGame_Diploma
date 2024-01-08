@@ -8,7 +8,7 @@ namespace NGame
     public class GameController : Singleton<GameController>
     {
         [SerializeField] private GameConfigurationData configurationData;
-        private GameInput gameInput;
+        public GameInput GameInput;
         private PlayerView playerView;
         private PlayerModel playerModel;
         public PlayerController PlayerController;
@@ -17,14 +17,8 @@ namespace NGame
         {
             base.Awake();
 
-            gameInput = new GameInput();
-            gameInput.PlayerInput.Enable();
-
-            PlayerInit(configurationData.PlayerConfiguration);
-            playerView = Instantiate(configurationData.PlayerConfiguration.PlayerPrefab, Vector3.zero, Quaternion.identity);
-            playerView.Initialize(playerModel, gameInput);
-            PlayerController = playerView.GetComponent<PlayerController>();
-            Debug.Log("G");
+            GameInput = new GameInput();
+            GameInput.PlayerInput.Enable();
         }
 
         private void PlayerInit(GameConfigurationDataPlayer playerConfig)
@@ -37,6 +31,17 @@ namespace NGame
                 SlidingSpeed = playerConfig.SlidingSpeed,
                 JumpPeriod = playerConfig.JumpPeriod
             };
+        }
+
+        public void CreatePlayer()
+        {
+            if (PlayerController != null)
+                return;
+
+            PlayerInit(configurationData.PlayerConfiguration);
+            playerView = Instantiate(configurationData.PlayerConfiguration.PlayerPrefab, Vector3.zero, Quaternion.identity);
+            playerView.Initialize(playerModel);
+            PlayerController = playerView.GetComponent<PlayerController>();
         }
     }
 }

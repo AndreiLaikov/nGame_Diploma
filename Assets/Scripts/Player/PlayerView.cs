@@ -12,11 +12,11 @@ namespace NGame.PlayerMVC
 
         private GameInput input;
 
-        public void Initialize(PlayerModel playerModel, GameInput playerInput)
+        public void Initialize(PlayerModel playerModel)
         {
             model = playerModel;
             controller.model = playerModel;
-            input = playerInput;
+            input = GameController.Instance.GameInput;
 
             input.PlayerInput.Jump.performed += Jump_performed;
         }

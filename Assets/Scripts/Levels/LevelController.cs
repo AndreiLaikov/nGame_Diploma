@@ -12,8 +12,9 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(PlayerPrefs.GetInt("Episode" + EpisodeNumber.ToString()));
-        player = GameController.Instance.PlayerController;
+        var gameController = GameController.Instance;
+        gameController.CreatePlayer();
+        player = gameController.PlayerController;
 
         foreach (var room in Rooms)
         {
@@ -33,8 +34,7 @@ public class LevelController : MonoBehaviour
     {
         if (roomNumber >= Rooms.Length)
         {
-            var currentEpisode = PlayerPrefs.GetInt("Episode" + EpisodeNumber.ToString());
-            PlayerPrefs.SetInt("Episode" + EpisodeNumber.ToString(), currentEpisode+1);
+            PlayerPrefs.SetInt("Episode" + EpisodeNumber.ToString(), EpisodeNumber + 1);
             SceneManager.LoadScene(0);
             return;
         }
@@ -51,7 +51,7 @@ public class LevelController : MonoBehaviour
     {
         foreach (var room in Rooms)
         {
-            room.RoomComplete += OnRoomComplete;
+            room.RoomComplete -= OnRoomComplete;
         }
     }
 }

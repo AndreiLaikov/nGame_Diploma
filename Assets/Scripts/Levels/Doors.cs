@@ -25,7 +25,6 @@ public class Doors : MonoBehaviour
         if (IsOpen && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerInDoor?.Invoke();
-            Debug.Log("LoadNext");
         }
     }
 
