@@ -5,7 +5,7 @@ namespace NGame.PlayerMVC
     public class PlayerController : MonoBehaviour
     {
         public PlayerModel model;
-        private Rigidbody2D rBody;
+        public Rigidbody2D rBody;
         private HealthSystem healthSystem;
 
         private bool IsReadyToWallJumping;

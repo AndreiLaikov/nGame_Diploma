@@ -6,16 +6,23 @@ namespace NGame.PlayerMVC
 {
     public class PlayerView : MonoBehaviour
     {
+        private string acSpeed = "Speed";
+        private string acSliding = "Sliding";
+        private string acSpeedY = "SpeedY";
         public PlayerModel model;
         public PlayerController controller;
         public SpriteRenderer spriteView;
+        public Animator PlayerAC;
+        public GameObject Parts;
 
         private GameInput input;
 
         private void OnDeath()
         {
             input.Disable();
-            spriteView.color = Color.red;
+            spriteView.enabled = false;
+            controller.rBody.simulated = false;
+            Parts.SetActive(true);
         }
 
         public void Initialize(PlayerModel playerModel)
@@ -38,12 +45,31 @@ namespace NGame.PlayerMVC
         {
             controller.Move(input.PlayerInput.Move.ReadValue<float>());
             controller.LongJump(input.PlayerInput.Jump.IsInProgress());
+            AnimController();
         }
 
         private void OnDestroy()
         {
             model.Death -= OnDeath;
             input.PlayerInput.Jump.performed -= Jump_performed;
+ 
+        }
+
+        private void AnimController()
+        {
+            PlayerAC.SetFloat(acSpeed, Mathf.Abs(controller.currentVelocity.x));
+            PlayerAC.SetFloat(acSpeedY, controller.currentVelocity.y);
+            PlayerAC.SetBool(acSliding, model.isSliding);
+
+            if(model.playerCurrentDirection == PlayerModel.PlayerDirection.Right)
+            {
+                spriteView.flipX = false;
+            }
+            else
+            {
+                spriteView.flipX = true;
+            }
+
         }
     }
 }
