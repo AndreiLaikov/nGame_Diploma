@@ -865,12 +865,14 @@ MonoBehaviour:
     SlidingSpeed: 0
     JumpPeriod: 0
     isDeath: 0
-  rBody: {fileID: 0}
+  rBody: {fileID: -1536313635968728499}
   currentVelocity: {x: 0, y: 0}
   groundChecker: {fileID: 8461917230207075988}
   groundedMask:
     serializedVersion: 2
     m_Bits: 64
+  RayCastLength: 1
+  lerpValue: 5
 --- !u!114 &-546278073293505344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,7 +954,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 793c10f18c05a4073a89142b110d6078, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -972,7 +974,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 9033559508378289142}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 793c10f18c05a4073a89142b110d6078, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

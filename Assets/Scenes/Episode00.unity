@@ -171,7 +171,7 @@ MonoBehaviour:
     PlayerConfiguration:
       PlayerPrefab: {fileID: 4545394750861638230, guid: ca6f6c0a909cc444196cc62f78eec938, type: 3}
       MaxSpeed: 10
-      Accleleration: 1
+      Accleleration: 10
       JumpForce: 5
       SlidingSpeed: 0.5
       JumpPeriod: 2

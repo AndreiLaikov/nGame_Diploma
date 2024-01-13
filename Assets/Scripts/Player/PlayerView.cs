@@ -9,6 +9,8 @@ namespace NGame.PlayerMVC
         private string acSpeed = "Speed";
         private string acSliding = "Sliding";
         private string acSpeedY = "SpeedY";
+        private string acGrounded = "Grounded";
+
         public PlayerModel model;
         public PlayerController controller;
         public SpriteRenderer spriteView;
@@ -41,18 +43,21 @@ namespace NGame.PlayerMVC
             controller.Jump();
         }
 
-        public void Update()//or FixedUpdate? Or read in Update and invoke in FixedUpdate?
+        public void Update()
+        {
+            AnimController();
+        }
+
+        public void FixedUpdate()
         {
             controller.Move(input.PlayerInput.Move.ReadValue<float>());
             controller.LongJump(input.PlayerInput.Jump.IsInProgress());
-            AnimController();
         }
 
         private void OnDestroy()
         {
             model.Death -= OnDeath;
             input.PlayerInput.Jump.performed -= Jump_performed;
- 
         }
 
         private void AnimController()
@@ -60,6 +65,7 @@ namespace NGame.PlayerMVC
             PlayerAC.SetFloat(acSpeed, Mathf.Abs(controller.currentVelocity.x));
             PlayerAC.SetFloat(acSpeedY, controller.currentVelocity.y);
             PlayerAC.SetBool(acSliding, model.isSliding);
+            PlayerAC.SetBool(acGrounded, model.isGrounded);
 
             if(model.playerCurrentDirection == PlayerModel.PlayerDirection.Right)
             {
