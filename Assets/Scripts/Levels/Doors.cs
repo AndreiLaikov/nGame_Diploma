@@ -6,9 +6,12 @@ public class Doors : MonoBehaviour
     public event Action PlayerInDoor;
     public bool IsOpen;
     public Unlocker[] unlockers;
+    public Sprite DoorOpened;
+    private SpriteRenderer sRenderer;
 
     private void Start()
     {
+        sRenderer = GetComponent<SpriteRenderer>();
         foreach (var unlocker in unlockers)
         {
             unlocker.UnlockerActivated += OnUnlockerActivate;
@@ -18,6 +21,7 @@ public class Doors : MonoBehaviour
     private void OnUnlockerActivate()
     {
         IsOpen = true;
+        sRenderer.sprite = DoorOpened;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
