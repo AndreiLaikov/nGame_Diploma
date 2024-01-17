@@ -23,8 +23,6 @@ namespace NGame.PlayerMVC
 
         private void Start()
         {
-            
-
             rBody = GetComponent<Rigidbody2D>();
             jumpTime = model.JumpPeriod;
 

@@ -4389,12 +4389,13 @@ MonoBehaviour:
   configurationData:
     PlayerConfiguration:
       PlayerPrefab: {fileID: 4545394750861638230, guid: ca6f6c0a909cc444196cc62f78eec938, type: 3}
-      MaxSpeed: 10
-      Accleleration: 1
+      MaxSpeed: 5
+      Accleleration: 10
       JumpForce: 5
       SlidingSpeed: 0.5
       JumpPeriod: 2
-  PlayerController: {fileID: 0}
+  Controller: {fileID: 0}
+  currentLevelController: {fileID: 0}
 --- !u!4 &1632259384
 Transform:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class LevelController : MonoBehaviour
     private int currentRoomNumber;
     private PlayerController player;
 
+    private Room currentRoom;
+
     private void Start()
     {
         foreach (var room in Rooms)
@@ -46,12 +48,16 @@ public class LevelController : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < Rooms.Length; i++)
+        if (currentRoom != null)
         {
-            Rooms[i].gameObject.SetActive(i == currentRoomNumber);
-            player.transform.position = Rooms[currentRoomNumber].PlayerSpawnPoint.position;
-            player.transform.rotation = Quaternion.identity;
+            currentRoom.RoomComplete -= OnRoomComplete;
+            Destroy(currentRoom.gameObject);
         }
+
+        currentRoom = Instantiate(Rooms[currentRoomNumber], transform);
+        currentRoom.RoomComplete += OnRoomComplete;
+        player.transform.position = currentRoom.PlayerSpawnPoint.position;
+        player.transform.rotation = Quaternion.identity;
     }
 
     private void OnDestroy()

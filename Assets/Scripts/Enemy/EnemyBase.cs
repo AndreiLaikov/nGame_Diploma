@@ -1,3 +1,4 @@
+using NGame.PlayerMVC;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour, IDamageDealer
@@ -5,7 +6,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamageDealer
     [SerializeField] private int damageValue;
     public int DamageValue { get => damageValue; }
 
-    protected Rigidbody2D playerRigidBody;
+    public int ExplosionForce;
+    protected Rigidbody2D[] playerRigidBody;
 
 
     public void DoDamage(IHealth healthSystem)
@@ -15,10 +17,21 @@ public abstract class EnemyBase : MonoBehaviour, IDamageDealer
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.GetComponent<PlayerView>())
         {
-            playerRigidBody = collision.GetComponent<Rigidbody2D>();
+            playerRigidBody = collision.GetComponent<PlayerView>().Parts.GetComponentsInChildren<Rigidbody2D>();
             DoDamage(collision.GetComponent<IHealth>());
+            Explode();
+        }
+    }
+
+    private void Explode()
+    {
+        foreach (var part in playerRigidBody)
+        {
+            var forceDirection = ((Vector3)part.position - transform.position) * ExplosionForce;
+            Debug.DrawRay(transform.position, forceDirection, Color.cyan);
+            part.AddForce(forceDirection, ForceMode2D.Impulse);
         }
     }
 
