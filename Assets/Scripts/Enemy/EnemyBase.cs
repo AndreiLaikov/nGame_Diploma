@@ -13,12 +13,15 @@ public abstract class EnemyBase : MonoBehaviour, IDamageDealer
     public void DoDamage(IHealth healthSystem)
     {
         healthSystem.ApplyDamage(damageValue);
+        Debug.Log(damageValue);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Trigger");
         if (collision.GetComponent<PlayerView>())
         {
+            Debug.Log("View");
             playerRigidBody = collision.GetComponent<PlayerView>().Parts.GetComponentsInChildren<Rigidbody2D>();
             DoDamage(collision.GetComponent<IHealth>());
             Explode();

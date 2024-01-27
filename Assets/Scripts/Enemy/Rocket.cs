@@ -9,11 +9,14 @@ public class Rocket : EnemyBase
 
     private void Flying()
     {
-        var dir = (Target.transform.position - transform.position).normalized;
-        rBody.MovePosition(transform.position + ForceValue * Time.deltaTime * dir);
+        var dir = Target.transform.position - transform.position;
+        rBody.MovePosition(transform.position + ForceValue * Time.fixedDeltaTime * dir.normalized);
+
+        var rot = Quaternion.LookRotation(dir,Vector2.up);
+        rBody.SetRotation(rot);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Flying();
     }

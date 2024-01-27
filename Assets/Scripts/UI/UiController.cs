@@ -47,6 +47,8 @@ public class UiController : MonoBehaviour
 
         model = gameController.Controller.model;
         model.Death += OnDeath;
+
+        ShowCanvas(3);
     }
 
     private void OnDestroy()
