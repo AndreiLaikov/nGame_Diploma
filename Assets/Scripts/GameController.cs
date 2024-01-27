@@ -54,5 +54,13 @@ namespace NGame
 
             currentLevelController.Restart();
         }
+
+        public void SetPause(bool value)
+        {
+            if (value == true)
+                Time.timeScale = 0;
+            else
+                Time.timeScale = 1;
+        }
     }
 }

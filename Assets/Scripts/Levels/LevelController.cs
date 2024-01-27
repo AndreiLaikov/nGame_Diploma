@@ -1,14 +1,15 @@
 using NGame;
 using NGame.PlayerMVC;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
+    public UiController UiControl;
     public int EpisodeNumber;
     public Room[] Rooms;
     private int currentRoomNumber;
     private PlayerController player;
+    private GameController gameController;
 
     private Room currentRoom;
 
@@ -20,6 +21,7 @@ public class LevelController : MonoBehaviour
         }
         currentRoomNumber = 0;
 
+        gameController = GameController.Instance;
         Restart();
     }
 
@@ -31,7 +33,6 @@ public class LevelController : MonoBehaviour
 
     public void Restart()
     {
-        var gameController = GameController.Instance;
         gameController.CreatePlayer();
         player = gameController.Controller;
         gameController.currentLevelController = this;
@@ -44,9 +45,12 @@ public class LevelController : MonoBehaviour
         if (currentRoomNumber >= Rooms.Length)
         {
             PlayerPrefs.SetInt("Episode" + EpisodeNumber.ToString(), EpisodeNumber + 1);
-            SceneManager.LoadScene(0);
+            UiControl.ShowCanvas(2);
             return;
         }
+
+        gameController.SetPause(true);
+        UiControl.ShowCanvas(3);
 
         if (currentRoom != null)
         {
