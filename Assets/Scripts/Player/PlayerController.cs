@@ -44,32 +44,26 @@ namespace NGame.PlayerMVC
             CheckGround();
             CheckSliding();
 
-
             raycastFrom = transform.position + (transform.up * 0.3f) - transform.right * (int)model.playerCurrentDirection * 0.2f;
             raycastTo = Vector3.down;
-
-            Debug.DrawRay(raycastFrom, raycastTo * RayCastLength , Color.red);
             
-            var r = Physics2D.RaycastAll(raycastFrom, raycastTo, RayCastLength, groundedMask);
+            var raycastResult = Physics2D.RaycastAll(raycastFrom, raycastTo, RayCastLength, groundedMask);
             
-            if(r.Length == 0)
+            if(raycastResult.Length == 0)
             {
                 directionChanged = transform.right;
                 Rotations(0);
             }
             else
             {
-                Debug.DrawRay(r[0].point, r[0].normal, Color.blue);
-                Debug.DrawRay(r[0].point, Vector3.Cross(r[0].normal, -transform.forward * (int)model.playerCurrentDirection), Color.green);
-
-                directionChanged = Vector3.Cross(r[0].normal, transform.forward);
+                directionChanged = Vector3.Cross(raycastResult[0].normal, transform.forward);
 
                 if (Vector2.Angle(directionChanged, Vector2.up) < 30  || Vector2.Angle(directionChanged, Vector2.up) > 150)
                 {
                     directionChanged = transform.right;
                 }
 
-                Rotations(90-Vector2.Angle(directionChanged, Vector2.up));
+                Rotations(90 - Vector2.Angle(directionChanged, Vector2.up));
             }
         }
 

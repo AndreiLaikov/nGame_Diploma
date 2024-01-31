@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8597238873983409373}
   - component: {fileID: 8635650572438890427}
   - component: {fileID: 3306542056086835246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3048772617458065189}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmallLock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 9033872962886591883}
   - component: {fileID: 5713537969032817530}
   - component: {fileID: 6170267100726224446}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Unlocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 481001067843213431}
   - component: {fileID: 3194600743658361742}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

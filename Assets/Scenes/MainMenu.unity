@@ -1348,9 +1348,9 @@ MonoBehaviour:
       PlayerPrefab: {fileID: 4545394750861638230, guid: ca6f6c0a909cc444196cc62f78eec938, type: 3}
       MaxSpeed: 5
       Accleleration: 10
-      JumpForce: 5
+      JumpForce: 8
       SlidingSpeed: 0.5
-      JumpPeriod: 2
+      JumpPeriod: 1
   Controller: {fileID: 0}
   currentLevelController: {fileID: 0}
 --- !u!4 &1632259384
